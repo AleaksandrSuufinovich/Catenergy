@@ -13,17 +13,19 @@ const styles = () => {
     .pipe(plumber())
     .pipe(sourcemap.init())
     .pipe(sass())
-    .pipe(postcss([autoprefixer()]))
+    .pipe(postcss([
+      autoprefixer()
+    ]))
     .pipe(sourcemap.write("."))
     .pipe(gulp.dest("source/css"))
     .pipe(sync.stream());
 }
 
-
+exports.styles = styles;
 
 // Server
 
-const server = () => {
+const server = (done) => {
   sync.init({
     server: {
       baseDir: 'source'
@@ -32,9 +34,10 @@ const server = () => {
     notify: false,
     ui: false,
   });
+  done();
 }
 
-
+exports.server = server;
 
 // Watcher
 
